@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import Dropdown from "./Dropdown";
 
-const Navbar = () => {
+function Navbar() {
   // State to manage the navbar's visibility
   const [nav, setNav] = useState(false);
 
@@ -13,19 +14,17 @@ const Navbar = () => {
   // Array containing navigation items
   const navItems = [
     { id: 1, text: "Home" },
-    { id: 2, text: "Company" },
-    { id: 3, text: "Resources" },
-    { id: 4, text: "About" },
-    { id: 5, text: "Contact" },
+    { id: 2, text: "About" },
+    { id: 3, text: "Contact" },
   ];
 
   return (
-    <nav className="bg-black flex justify-between items-center h-20 px-5 text-white">
+    <nav className="bg-black flex justify-between items-center h-14 px-5 text-white">
       {/* Logo */}
       <h1 className="w-full text-[30px] font-bold text-[#00df9a]">Cloudpics</h1>
 
       {/* Desktop Navigation */}
-      <ul className="hidden md:flex">
+      <ul className="hidden md:flex md:flex-row md:items-center">
         {navItems.map((item) => (
           <li
             key={item.id}
@@ -34,6 +33,7 @@ const Navbar = () => {
             {item.text}
           </li>
         ))}
+        <Dropdown />
       </ul>
 
       {/* Mobile Navigation Icon */}
@@ -63,9 +63,10 @@ const Navbar = () => {
             {item.text}
           </li>
         ))}
+        <Dropdown />
       </ul>
     </nav>
   );
-};
+}
 
 export default Navbar;
