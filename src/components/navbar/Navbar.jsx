@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-import Dropdown from "./Dropdown";
 
 function Navbar() {
   // State to manage the navbar's visibility
@@ -33,7 +32,6 @@ function Navbar() {
             {item.text}
           </li>
         ))}
-        <Dropdown />
       </ul>
 
       {/* Mobile Navigation Icon */}
@@ -45,13 +43,13 @@ function Navbar() {
       <ul
         className={
           nav
-            ? "fixed md:hidden left-0 top-0 w-[60%] h-full border-r border-r-gray-900 bg-[#000300] ease-in-out duration-500 pt-[110px]"
+            ? "fixed md:hidden left-0 top-0 w-[60%] h-full border-r border-r-gray-900 bg-[#000300] ease-in-out duration-500"
             : "ease-in-out w-[60%] duration-500 fixed top-0 bottom-0 left-[-100%]"
         }
       >
         {/* Mobile Logo */}
         <h1 className="w-full text-[30px] font-bold text-[#00df9a] m-4">
-          {/* Cloudpics */}
+          Cloudpics
         </h1>
 
         {/* Mobile Navigation Items */}
@@ -63,7 +61,6 @@ function Navbar() {
             {item.text}
           </li>
         ))}
-        <Dropdown />
       </ul>
     </nav>
   );

@@ -1,6 +1,5 @@
 import Navbar from "./components/navbar/Navbar";
 import Card from "./components/Card";
-import SearchForm from "./components/SearchForm";
 import "./App.css";
 import SliderComponent from "./components/SliderComponent";
 import UploadForm from "./components/UploadForm";
@@ -73,9 +72,6 @@ function App() {
   return (
     <>
       <Navbar />
-      <div className="h-20 border flex flex-row items-center">
-        <SearchForm />
-      </div>
       <div className="flex flex-col items-center mt-5 px-2">
         <button
           className="px-4 py-2 bg-[#00df9a] text-black"
