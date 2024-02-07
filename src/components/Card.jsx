@@ -1,15 +1,16 @@
 import PropTypes from "prop-types";
 
-function Card(props) {
+function Card({ title, path }) {
   return (
     <div className=" w-[100%]">
-      <img src={props.src} alt={props.src} width={380} height={380} />
+      <img src={path} alt={title} width={380} height={380} />
     </div>
   );
 }
 
 Card.propTypes = {
-  src: PropTypes.string,
+  title: PropTypes.string,
+  path: PropTypes.string,
 };
 
 export default Card;
