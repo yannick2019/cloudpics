@@ -1,6 +1,11 @@
 import { FileInput } from "flowbite-react";
 import { useContext, useMemo } from "react";
 import { Context } from "../context";
+import Firestore from "../handlers/firestore";
+import Storage from "../handlers/storage";
+
+const { writeDoc } = Firestore;
+const { uploadFile, downloadFile } = Storage;
 
 const Preview = () => {
   const { state } = useContext(Context);
@@ -26,8 +31,14 @@ function UploadForm() {
     dispatch({ type: "setInputs", payload: { value: e } });
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    dispatch({ type: "setItem" });
-    dispatch({ type: "collapse", payload: { bool: false } });
+    uploadFile(state.inputs)
+      .then(downloadFile)
+      .then((url) => {
+        writeDoc({ ...state.inputs, path: url }, "stocks").then(() => {
+          dispatch({ type: "setItem" });
+          dispatch({ type: "collapse", payload: { bool: false } });
+        });
+      });
   };
 
   const isDisabled = useMemo(() => {
@@ -62,7 +73,7 @@ function UploadForm() {
             className="bg-[#00df9a] text-black px-4 py-2 rounded-lg cursor-pointer"
             disabled={isDisabled}
           >
-            Save changes
+            Save and Upload
           </button>
         </form>
       </div>

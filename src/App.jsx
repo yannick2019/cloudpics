@@ -3,11 +3,11 @@ import Card from "./components/Card";
 import "./App.css";
 import SliderComponent from "./components/SliderComponent";
 import UploadForm from "./components/UploadForm";
-import { useContext, useMemo } from "react";
+import { useContext, useMemo, useEffect } from "react";
 import { Context } from "./context";
 
 function App() {
-  const { dispatch, state } = useContext(Context);
+  const { dispatch, state, read } = useContext(Context);
   const toggle = (bool) => dispatch({ type: "collapse", payload: { bool } });
 
   const count = useMemo(() => {
@@ -15,6 +15,10 @@ function App() {
       state.items.length > 1 ? "s" : ""
     }`;
   }, [state.items]);
+
+  useEffect(() => {
+    read();
+  }, []);
 
   return (
     <>
