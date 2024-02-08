@@ -1,16 +1,18 @@
 import { FileInput } from "flowbite-react";
-import PropTypes from "prop-types";
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
+import { Context } from "../context";
 
-const Preview = ({ path }) => {
+const Preview = () => {
+  const { state } = useContext(Context);
+  const { inputs } = state;
   return (
-    path && (
+    inputs.path && (
       <div
         className="p-1 m-5"
         style={{
           width: "300px",
           height: "300px",
-          backgroundImage: `url(${path})`,
+          backgroundImage: `url(${inputs.path})`,
           backgroundSize: "cover",
         }}
       ></div>
@@ -18,18 +20,27 @@ const Preview = ({ path }) => {
   );
 };
 
-function UploadForm({ inputs, isVisible, onChange, onSubmit }) {
+function UploadForm() {
+  const { dispatch, state } = useContext(Context);
+  const handleOnChange = (e) =>
+    dispatch({ type: "setInputs", payload: { value: e } });
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    dispatch({ type: "setItem" });
+    dispatch({ type: "collapse", payload: { bool: false } });
+  };
+
   const isDisabled = useMemo(() => {
-    return !!Object.values(inputs).some((input) => !input);
-  }, [inputs]);
+    return !!Object.values(state.inputs).some((input) => !input);
+  }, [state.inputs]);
 
   return (
-    isVisible && (
+    state.isCollapsed && (
       <div className="flex flex-col md:flex-row">
-        <Preview {...inputs} />
+        <Preview {...state.inputs} />
         <form
           className="mb-5 mt-5 border rounded-xl p-4 shadow-md"
-          onSubmit={onSubmit}
+          onSubmit={handleOnSubmit}
         >
           <p className="text-3xl mb-2 text-black">Upload Stock Image</p>
           <input
@@ -37,14 +48,14 @@ function UploadForm({ inputs, isVisible, onChange, onSubmit }) {
             placeholder="Title"
             name="title"
             aria-describedby="text"
-            onChange={onChange}
+            onChange={handleOnChange}
             className="w-[100%] p-2 mb-2 mt-2 border rounded-lg"
           />
           <FileInput
             id="file-upload"
             name="file"
             className="mb-4"
-            onChange={onChange}
+            onChange={handleOnChange}
           />
           <button
             type="submit"
@@ -58,16 +69,5 @@ function UploadForm({ inputs, isVisible, onChange, onSubmit }) {
     )
   );
 }
-
-UploadForm.propTypes = {
-  isVisible: PropTypes.bool,
-  onChange: PropTypes.func,
-  onSubmit: PropTypes.func,
-  inputs: PropTypes.object,
-};
-
-Preview.propTypes = {
-  path: PropTypes.string,
-};
 
 export default UploadForm;
