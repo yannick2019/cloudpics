@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
+import Stocks from "./pages/Stocks.jsx";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Provider from "./context/FirestoreContext";
 import "./index.css";
 import AuthProvider from "./context/AuthContext";
@@ -9,7 +11,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
       <Provider>
-        <App />
+        <Router>
+          <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="/stocks" element={<Stocks />} />
+          </Routes>
+        </Router>
       </Provider>
     </AuthProvider>
   </React.StrictMode>

@@ -83,7 +83,7 @@ function UploadForm() {
             className="bg-[#00df9a] text-black px-4 py-2 rounded-lg cursor-pointer"
             disabled={isDisabled}
           >
-            Save and Upload
+            Upload
           </button>
         </form>
       </div>
