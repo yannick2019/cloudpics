@@ -5,6 +5,7 @@ import SliderComponent from "./components/SliderComponent";
 import UploadForm from "./components/UploadForm";
 import { useContext, useMemo, useEffect } from "react";
 import { Context } from "./context";
+import Searchbar from "./components/Searchbar";
 
 function App() {
   const { dispatch, state, read } = useContext(Context);
@@ -23,6 +24,7 @@ function App() {
   return (
     <>
       <Navbar />
+      <Searchbar />
       <div className="flex flex-col items-center mt-5 px-2">
         <button
           className="px-4 py-2 bg-[#00df9a] text-black"
