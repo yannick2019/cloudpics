@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import { useMemo } from "react";
 
-function Card({ title, path, createdAt }) {
+function Card({ title, path, createdAt, user }) {
   const timestamp = useMemo(() => {
-    const date = `${new Date(createdAt.seconds * 1000)}`.split(" ");
+    const date = `${new Date(createdAt?.seconds * 1000)}`.split(" ");
     return `${date[1]} ${date[2]} ${date[3]}`;
   }, []);
 
@@ -20,7 +20,7 @@ function Card({ title, path, createdAt }) {
       <h5 className="text-center">{title}</h5>
       <div className="flex flex-row items-center justify-between p-2">
         <p>{timestamp}</p>
-        <i>@username</i>
+        <i>{`@${user}`}</i>
       </div>
     </div>
   );
@@ -29,7 +29,8 @@ function Card({ title, path, createdAt }) {
 Card.propTypes = {
   title: PropTypes.string,
   path: PropTypes.string,
-  createdAt: PropTypes.string,
+  createdAt: PropTypes.object,
+  user: PropTypes.string,
 };
 
 export default Card;

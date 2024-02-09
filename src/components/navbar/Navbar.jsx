@@ -1,7 +1,8 @@
-import { Fragment } from "react";
+import { Fragment, useMemo } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import userIcon from "../../assets/icons8-user-48.png";
+import { useAuthContext } from "../../context/AuthContext";
 
 const navigation = [
   { name: "Home", href: "#", current: true },
@@ -13,7 +14,49 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
+const LogIn = () => {
+  const { login, currentUser } = useAuthContext();
+  return (
+    !currentUser && (
+      <button className="bg-[#00df9a] px-2 py-1" onClick={login}>
+        Login
+      </button>
+    )
+  );
+};
+
+const LogOut = () => {
+  const { logout, currentUser } = useAuthContext();
+  return (
+    currentUser && (
+      <button className="bg-[#00df9a] px-2 py-1" onClick={logout}>
+        Logout
+      </button>
+    )
+  );
+};
+
 export default function Navbar() {
+  const { currentUser } = useAuthContext();
+
+  const username = useMemo(() => {
+    return currentUser?.displayName || "Profile";
+  }, [currentUser]);
+
+  const avatar = useMemo(() => {
+    return currentUser ? (
+      <img
+        src={currentUser?.photoURL}
+        alt={currentUser?.displayName}
+        width={34}
+        height={34}
+        className="rounded-full"
+      />
+    ) : (
+      <img className="h-8 w-8 rounded-full" src={userIcon} alt="user icon" />
+    );
+  }, [currentUser]);
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -72,11 +115,7 @@ export default function Navbar() {
                     <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
-                      <img
-                        className="h-8 w-8 rounded-full"
-                        src={userIcon}
-                        alt="user icon"
-                      />
+                      {avatar}
                     </Menu.Button>
                   </div>
                   <Transition
@@ -98,7 +137,20 @@ export default function Navbar() {
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
                           >
-                            Your Profile
+                            {username}
+                          </a>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            href={"#"}
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
+                          >
+                            <LogIn />
                           </a>
                         )}
                       </Menu.Item>
@@ -111,20 +163,7 @@ export default function Navbar() {
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
                           >
-                            Settings
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}
-                          >
-                            Sign out
+                            <LogOut />
                           </a>
                         )}
                       </Menu.Item>

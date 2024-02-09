@@ -4,11 +4,13 @@ import "./App.css";
 import SliderComponent from "./components/SliderComponent";
 import UploadForm from "./components/UploadForm";
 import { useContext, useMemo, useEffect } from "react";
-import { Context } from "./context";
+import { Context } from "./context/FirestoreContext";
+import { useAuthContext } from "./context/AuthContext";
 import Searchbar from "./components/Searchbar";
 
 function App() {
   const { dispatch, state, read } = useContext(Context);
+  const { authenticate } = useAuthContext();
   const toggle = (bool) => dispatch({ type: "collapse", payload: { bool } });
 
   const count = useMemo(() => {
@@ -19,6 +21,7 @@ function App() {
 
   useEffect(() => {
     read();
+    authenticate();
   }, []);
 
   return (

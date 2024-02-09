@@ -1,6 +1,7 @@
 import { FileInput } from "flowbite-react";
 import { useContext, useMemo } from "react";
-import { Context } from "../context";
+import { Context } from "../context/FirestoreContext";
+import { useAuthContext } from "../context/AuthContext";
 import Firestore from "../handlers/firestore";
 import Storage from "../handlers/storage";
 
@@ -9,15 +10,18 @@ const { uploadFile, downloadFile } = Storage;
 
 const Preview = () => {
   const { state } = useContext(Context);
-  const { inputs } = state;
+  const { currentUser } = useAuthContext();
+  const {
+    inputs: { path },
+  } = state; // destructuring current state
   return (
-    inputs.path && (
+    path && (
       <div
         className="p-1 m-5"
         style={{
           width: "300px",
           height: "300px",
-          backgroundImage: `url(${inputs.path})`,
+          backgroundImage: `url(${path})`,
           backgroundSize: "cover",
         }}
       ></div>
@@ -26,16 +30,22 @@ const Preview = () => {
 };
 
 function UploadForm() {
-  const { dispatch, state } = useContext(Context);
+  const { dispatch, state, read } = useContext(Context);
+  const { currentUser } = useAuthContext();
   const handleOnChange = (e) =>
     dispatch({ type: "setInputs", payload: { value: e } });
+
+  const username = currentUser?.displayName.split(" ").join("");
   const handleOnSubmit = (e) => {
     e.preventDefault();
     uploadFile(state.inputs)
       .then(downloadFile)
       .then((url) => {
-        writeDoc({ ...state.inputs, path: url }, "stocks").then(() => {
-          dispatch({ type: "setItem" });
+        writeDoc(
+          { ...state.inputs, path: url, user: username.toLowerCase() },
+          "stocks"
+        ).then(() => {
+          read();
           dispatch({ type: "collapse", payload: { bool: false } });
         });
       });
@@ -48,7 +58,7 @@ function UploadForm() {
   return (
     state.isCollapsed && (
       <div className="flex flex-col md:flex-row">
-        <Preview {...state.inputs} />
+        <Preview />
         <form
           className="mb-5 mt-5 border rounded-xl p-4 shadow-md"
           onSubmit={handleOnSubmit}

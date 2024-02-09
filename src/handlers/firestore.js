@@ -22,11 +22,11 @@ const Firestore = {
 
   writeDoc: (...args) => {
     const [inputs, collection_name] = args
-    return new Promise(async resolve => {
+    return new Promise(resolve => {
       const randomIndex = Math.floor(Math.random() * 1000000000)
       try {
         const docRef = doc(db, 'stocks', `${randomIndex}`);
-        await setDoc(docRef, { title: inputs.title, path: inputs.path, createdAt: serverTimestamp() });
+        setDoc(docRef, { title: inputs.title, path: inputs.path, createdAt: serverTimestamp(), user: inputs.user });
         resolve('new doc successfully inserted')
       } catch (error) {
         console.log(error);

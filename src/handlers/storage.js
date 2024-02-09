@@ -15,10 +15,10 @@ const Storage = {
     })
   },
   downloadFile: (media) => {
-    return new Promise(async resolve => {
+    return new Promise(resolve => {
       try {
         const mediaRef = ref(storage, media.path)
-        const fileURL = await getDownloadURL(mediaRef)
+        const fileURL = getDownloadURL(mediaRef)
         resolve(fileURL)
       } catch (err) {
         console.error(err)
