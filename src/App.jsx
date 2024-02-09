@@ -38,7 +38,7 @@ function App() {
         <UploadForm />
         <h1 className="text-[40px] mb-4 mt-4">Gallery Images</h1>
         <span className="mb-5">{count}</span>
-        <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
+        <div className="grid gap-4 grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
           {state.items.map((item, index) => (
             <Card key={index} {...item} />
           ))}
