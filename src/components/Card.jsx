@@ -8,7 +8,7 @@ function Card({ title, path, createdAt, user }) {
   }, []);
 
   return (
-    <div className=" w-[18rem] border">
+    <div className=" w-[18rem] border shadow-md">
       <div
         style={{
           height: "220px",
@@ -17,10 +17,12 @@ function Card({ title, path, createdAt, user }) {
           backgroundRepeat: "no-repeat",
         }}
       ></div>
-      <h5 className="text-center">{title}</h5>
-      <div className="flex flex-row items-center justify-between p-2">
-        <p>{timestamp}</p>
-        <i>{`@${user}`}</i>
+      <div className="border-t-2">
+        <h5 className="text-center">{title}</h5>
+        <div className="flex flex-row items-center justify-between p-2">
+          <p>{timestamp}</p>
+          <i>{`@${user}`}</i>
+        </div>
       </div>
     </div>
   );

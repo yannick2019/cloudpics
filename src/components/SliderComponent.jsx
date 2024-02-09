@@ -12,7 +12,7 @@ export default function SliderComponent() {
   ];
 
   return (
-    <div className="hidden md:block md:flex md:flex-row md:items-center md:gap-2 md:mt-[120px]">
+    <div className="hidden md:block md:flex md:flex-row md:items-center md:gap-2 md:mt-[100px]">
       <Marquee
         velocity={25}
         direction="rtl"
