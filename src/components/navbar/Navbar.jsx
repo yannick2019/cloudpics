@@ -7,8 +7,8 @@ import { Link } from "react-router-dom";
 
 const navigation = [
   { name: "Home", href: "/", current: false },
-  { name: "My Stocks", href: "/stocks", current: false },
-  { name: "About us", href: "#", current: false },
+  { name: "My Stock Images", href: "/stock-images", current: false },
+  { name: "About", href: "#", current: false },
 ];
 
 function classNames(...classes) {
@@ -20,7 +20,7 @@ const LogIn = () => {
   return (
     !currentUser && (
       <button className="bg-[#00df9a] px-2 py-1" onClick={login}>
-        Login
+        Login with Gmail Account
       </button>
     )
   );

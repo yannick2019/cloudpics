@@ -15,7 +15,7 @@ function App() {
   const toggle = (bool) => dispatch({ type: "collapse", payload: { bool } });
 
   const count = useMemo(() => {
-    return `You have ${state.items.length} image${
+    return `Total: ${state.items.length} image${
       state.items.length > 1 ? "s" : ""
     }`;
   }, [state.items]);
@@ -38,7 +38,7 @@ function App() {
             {state.isCollapsed ? "Close" : "+ Add"}
           </button>
           <UploadForm />
-          <h1 className="text-[40px] mb-4 mt-4">Gallery Images</h1>
+          <h1 className="text-[40px] mb-4 mt-4">Gallery</h1>
           <span className="mb-5">{count}</span>
           <div className="grid gap-4 grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
             <List items={state.items} />

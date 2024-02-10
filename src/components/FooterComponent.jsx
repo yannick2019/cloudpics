@@ -7,7 +7,7 @@ function FooterComponent() {
         <div className="w-full p-2 md:px-4 justify-between sm:flex sm:items-center sm:justify-between md:h-[100px]">
           <span className="text-[#00df9a] text-xl">Cloudpics</span>
           <Footer.LinkGroup className="text-white flex gap-2 flex-col items-center md:flex-row md:gap-8">
-            <Footer.Link href="#">About us</Footer.Link>
+            <Footer.Link href="#">About</Footer.Link>
             <Footer.Link href="#">Privacy Policy</Footer.Link>
             <Footer.Link href="#">Contact</Footer.Link>
           </Footer.LinkGroup>
