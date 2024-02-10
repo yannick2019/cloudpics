@@ -5,13 +5,13 @@ import FooterComponent from "../components/FooterComponent";
 import { Context } from "../context/FirestoreContext";
 import { useFirestoreContext } from "../context/FirestoreContext";
 import { useAuthContext } from "../context/AuthContext";
-import { useContext, useMemo } from "react";
+import { useContext, useMemo, useEffect } from "react";
 import UploadForm from "../components/UploadForm";
 
 function Stockimages() {
   const { state } = useFirestoreContext();
-  const { currentUser } = useAuthContext();
-  const { dispatch } = useContext(Context);
+  const { currentUser, authenticate } = useAuthContext();
+  const { dispatch, read } = useContext(Context);
   const toggle = (bool) => dispatch({ type: "collapse", payload: { bool } });
 
   const items = useMemo(() => {
@@ -25,6 +25,11 @@ function Stockimages() {
   const count = useMemo(() => {
     return `You have ${items.length} image${items.length > 1 ? "s" : ""}`;
   }, [items]);
+
+  useEffect(() => {
+    read();
+    authenticate();
+  }, []);
 
   return (
     <>
