@@ -3,20 +3,50 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import userIcon from "../../assets/icons8-user-48.png";
 import { useAuthContext } from "../../context/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 function Navigation() {
   const { currentUser } = useAuthContext();
+  const { pathname } = useLocation();
   return (
     <ul className="flex flex-col gap-1 justify-start text-white sm:flex-row sm:gap-4 md:flex-row md:gap-4">
       <li className="mr-[80px] sm:mr-0 md:mr-0">
-        <Link to="/">Home</Link>
+        <Link to="/" className={`${pathname === "/" ? "text-[#00df9a]" : ""}`}>
+          Home
+        </Link>
       </li>
-      <li className="">
-        {currentUser && <Link to="/stock-images">My Stock Images</Link>}
-      </li>
+
+      {currentUser && (
+        <li className="">
+          <Link
+            to="/stock-images"
+            className={`${
+              pathname === "/stock-images" ? "text-[#00df9a]" : ""
+            }`}
+          >
+            My Stock Images
+          </Link>
+        </li>
+      )}
+
+      {currentUser && (
+        <li className="mr-[80px] sm:mr-0 md:mr-0">
+          <Link
+            to="/profile"
+            className={`${pathname === "/profile" ? "text-[#00df9a]" : ""}`}
+          >
+            Profile
+          </Link>
+        </li>
+      )}
+
       <li className="mr-[80px] sm:mr-0 md:mr-0">
-        <Link to="#">About</Link>
+        <Link
+          to="#"
+          className={`${pathname === "/about" ? "text-[#00df9a]" : ""}`}
+        >
+          About
+        </Link>
       </li>
     </ul>
   );
@@ -53,7 +83,7 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   const username = useMemo(() => {
-    return currentUser?.displayName || "Profile";
+    return currentUser?.displayName;
   }, [currentUser]);
 
   const avatar = useMemo(() => {
@@ -123,11 +153,13 @@ export default function Navbar() {
                           <a
                             href="#"
                             className={classNames(
-                              active ? "bg-gray-100" : "",
+                              active ? "bg-white" : "",
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
                           >
-                            {username}
+                            {currentUser && (
+                              <Link to={"/profile"}>{username}</Link>
+                            )}
                           </a>
                         )}
                       </Menu.Item>
@@ -136,7 +168,7 @@ export default function Navbar() {
                           <a
                             href={"#"}
                             className={classNames(
-                              active ? "bg-gray-100" : "",
+                              active ? "bg-white" : "",
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
                           >
@@ -150,7 +182,7 @@ export default function Navbar() {
                             onClick={() => navigate("/")}
                             href="#"
                             className={classNames(
-                              active ? "bg-gray-100" : "",
+                              active ? "bg-white" : "",
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
                           >

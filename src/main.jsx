@@ -7,6 +7,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Provider from "./context/FirestoreContext";
 import "./index.css";
 import AuthProvider, { useAuthContext } from "./context/AuthContext";
+import NotFound from "./pages/NotFound.jsx";
+import Profile from "./pages/Profile.jsx";
 
 export function AppRoutes() {
   const { currentUser } = useAuthContext();
@@ -14,7 +16,9 @@ export function AppRoutes() {
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/images/:id" element={<Single />} />
+      <Route path="*" element={<NotFound />} />
       {currentUser && <Route path="/stock-images" element={<Stockimages />} />}
+      {currentUser && <Route path="/profile" element={<Profile />} />}
     </Routes>
   );
 }

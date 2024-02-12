@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useMemo } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Card({ title, path, createdAt, user, id }) {
   const navigate = useNavigate();
