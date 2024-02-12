@@ -1,14 +1,24 @@
 import PropTypes from "prop-types";
 import { useMemo } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
-function Card({ title, path, createdAt, user }) {
+function Card({ title, path, createdAt, user, id }) {
+  const navigate = useNavigate();
+
+  const handleOnClick = () => {
+    navigate(`/images/${id}`, { state: { id } });
+  };
+
   const timestamp = useMemo(() => {
     const date = `${new Date(createdAt?.seconds * 1000)}`.split(" ");
     return `${date[1]} ${date[2]} ${date[3]}`;
   }, []);
 
   return (
-    <div className=" w-[18rem] border shadow-md">
+    <div
+      className=" w-[18rem] border shadow-md cursor-pointer"
+      onClick={handleOnClick}
+    >
       <div
         style={{
           height: "220px",
@@ -33,6 +43,7 @@ Card.propTypes = {
   path: PropTypes.string,
   createdAt: PropTypes.object,
   user: PropTypes.string,
+  id: PropTypes.string,
 };
 
 export default Card;

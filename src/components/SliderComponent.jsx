@@ -27,7 +27,7 @@ export default function SliderComponent() {
               src={image}
               alt="image"
               width={200}
-              className="mr-4 cursor-pointer"
+              className="mr-4"
               style={{ borderRadius: "10px" }}
             />
           </div>

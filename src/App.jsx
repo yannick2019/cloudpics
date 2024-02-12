@@ -8,6 +8,7 @@ import { useAuthContext } from "./context/AuthContext";
 import Searchbar from "./components/Searchbar";
 import List from "./components/List";
 import FooterComponent from "./components/FooterComponent";
+import GoUpButton from "./components/GoUpButton";
 
 function App() {
   const { dispatch, state, read } = useContext(Context);
@@ -28,7 +29,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <main className="h-[100dvh]">
+      <main className="">
         <Searchbar />
         <div className="flex flex-col items-center mt-5 px-2">
           <button
@@ -45,8 +46,9 @@ function App() {
           </div>
         </div>
         <SliderComponent />
-        <FooterComponent />
       </main>
+      <GoUpButton />
+      <FooterComponent />
     </>
   );
 }

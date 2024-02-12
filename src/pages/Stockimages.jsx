@@ -17,7 +17,7 @@ function Stockimages() {
   const items = useMemo(() => {
     const filtered = state.items.filter((item) => {
       const username = currentUser?.displayName.split(" ").join("");
-      return item.user === username;
+      return item.user === username?.toLowerCase();
     });
     return currentUser ? filtered : [];
   }, [state.items, currentUser]);
@@ -34,7 +34,7 @@ function Stockimages() {
   return (
     <>
       <Navbar />
-      <main className="h-[100dvh]">
+      <main className="h-100dvh">
         <Searchbar />
         <div className="flex flex-col items-center mt-5 px-2">
           <button

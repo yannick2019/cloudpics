@@ -3,13 +3,24 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import userIcon from "../../assets/icons8-user-48.png";
 import { useAuthContext } from "../../context/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const navigation = [
-  { name: "Home", href: "/", current: false },
-  { name: "My Stock Images", href: "/stock-images", current: false },
-  { name: "About", href: "#", current: false },
-];
+function Navigation() {
+  const { currentUser } = useAuthContext();
+  return (
+    <ul className="flex flex-col gap-1 justify-start text-white sm:flex-row sm:gap-4 md:flex-row md:gap-4">
+      <li className="mr-[80px] sm:mr-0 md:mr-0">
+        <Link to="/">Home</Link>
+      </li>
+      <li className="">
+        {currentUser && <Link to="/stock-images">My Stock Images</Link>}
+      </li>
+      <li className="mr-[80px] sm:mr-0 md:mr-0">
+        <Link to="#">About</Link>
+      </li>
+    </ul>
+  );
+}
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -39,6 +50,7 @@ const LogOut = () => {
 
 export default function Navbar() {
   const { currentUser } = useAuthContext();
+  const navigate = useNavigate();
 
   const username = useMemo(() => {
     return currentUser?.displayName || "Profile";
@@ -80,23 +92,9 @@ export default function Navbar() {
                 <div className="flex flex-shrink-0 items-center text-2xl text-[#00df9a]">
                   <Link to={"/"}>Cloudpics</Link>
                 </div>
-                <div className="hidden sm:ml-6 sm:block">
-                  <div className="flex space-x-4">
-                    {navigation.map((item) => (
-                      <Link
-                        key={item.name}
-                        to={item.href}
-                        className={classNames(
-                          item.current
-                            ? "bg-gray-900 text-white"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                          "rounded-md px-3 py-2 text-sm font-medium"
-                        )}
-                        aria-current={item.current ? "page" : undefined}
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
+                <div className="hidden sm:ml-6 sm:block mt-1">
+                  <div className="flex space-x-4 ml-4">
+                    <Navigation />
                   </div>
                 </div>
               </div>
@@ -149,6 +147,7 @@ export default function Navbar() {
                       <Menu.Item>
                         {({ active }) => (
                           <a
+                            onClick={() => navigate("/")}
                             href="#"
                             className={classNames(
                               active ? "bg-gray-100" : "",
@@ -167,24 +166,9 @@ export default function Navbar() {
           </div>
 
           <Disclosure.Panel className="sm:hidden">
-            <div className="space-y-1 px-2 pb-3 pt-2">
-              {navigation.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as="a"
-                  href={item.href}
-                  className={classNames(
-                    item.current
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                    "block rounded-md px-3 py-2 text-base font-medium"
-                  )}
-                  aria-current={item.current ? "page" : undefined}
-                >
-                  {item.name}
-                </Disclosure.Button>
-              ))}
-            </div>
+            <Disclosure.Button className="p-2">
+              <Navigation />
+            </Disclosure.Button>
           </Disclosure.Panel>
         </>
       )}
