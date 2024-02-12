@@ -61,7 +61,7 @@ const LogIn = () => {
   return (
     !currentUser && (
       <button className="bg-[#00df9a] px-2 py-1" onClick={login}>
-        Login with Gmail Account
+        Sign In with Gmail Account
       </button>
     )
   );
