@@ -9,6 +9,7 @@ import Searchbar from "./components/Searchbar";
 import List from "./components/List";
 import FooterComponent from "./components/FooterComponent";
 import GoUpButton from "./components/GoUpButton";
+import CookieDisclaimer from "./components/CookieDisclaimer";
 
 function App() {
   const { dispatch, state, read } = useContext(Context);
@@ -59,6 +60,7 @@ function App() {
       </main>
       <GoUpButton />
       <FooterComponent />
+      <CookieDisclaimer />
     </>
   );
 }
