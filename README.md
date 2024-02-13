@@ -12,9 +12,17 @@ Slick image gallery web application where user can upload image stocks, connect 
 
 ![Screen shot](./src/assets/screen-shot.png)
 
+## See it live
+
+-> [Cloudpics](https://cloudpics-b1aa9.web.app/)
+
 ## Used Tech
 
 - React
 - JavaScript
 - Tailwind CSS
 - Firebase
+
+## Copyright
+
+2024
