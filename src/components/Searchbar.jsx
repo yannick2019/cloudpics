@@ -1,7 +1,23 @@
+import { useState } from "react";
+import { useFirestoreContext } from "../context/FirestoreContext";
+
 function Searchbar() {
+  const [text, search] = useState(null);
+  const { filterItems: filter } = useFirestoreContext();
+
+  const handleOnChange = (e) => {
+    search(e.target.value);
+    filter(e.target.value);
+  };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    filter(text);
+  };
+
   return (
     <div className="h-[70px] py-2">
-      <form>
+      <form onSubmit={handleOnSubmit}>
         <label
           htmlFor="default-search"
           className="mb-2 text-sm font-medium text-gray-900 sr-only"
@@ -32,6 +48,7 @@ function Searchbar() {
             className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-400 bg-gray-50 focus:ring-grey-500"
             placeholder="Search"
             required
+            onChange={handleOnChange}
           />
           <button
             type="submit"
