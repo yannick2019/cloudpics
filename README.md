@@ -8,6 +8,10 @@ Slick image gallery web application where user can upload image stocks, connect 
 - Upload images
 - Search and filter
 
+## Preview
+
+![Screen shot](./src/assets/screen-shot.png)
+
 ## Used Tech
 
 - React
